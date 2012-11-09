@@ -4,7 +4,7 @@ apache-maven
 
 Rerun module to manage the apache-maven distribution
 
-Usage:
+*Usage:*
 <pre>
 [chuck@mvn-sdp-0 apache-maven]$ rerun apache-maven:
 Available commands in module, "/home/chuck/workspace/rerun-modules/apache-maven":
@@ -16,7 +16,7 @@ build: "build and package the apache-maven distribution"
     --directory|-d <>: "reference installation directory to package"
 </pre>
 
-Example Build:
+*Example Build:*
 <pre>
 [chuck@mvn-sdp-0 apache-maven]$ cp -r examples/build/maven /tmp
 [chuck@mvn-sdp-0 apache-maven]$ rerun apache-maven: build --directory /tmp/maven --version 3.0.4
@@ -71,7 +71,7 @@ Executing(%clean): /bin/sh -e /var/tmp/rpm-tmp.EaLWv1
 + exit 0
 </pre>
 
-Querying and Installing the Package:
+*Querying and Installing the Package:*
 <pre>
 [chuck@mvn-sdp-0 apache-maven]$ rpm -qip /tmp/maven/RPMS/noarch/apache-maven-3.0.4-1.noarch.rpm 
 Name        : apache-maven                 Relocations: (not relocatable)
