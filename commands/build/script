@@ -44,7 +44,10 @@ buildrpm() {
     #
     # wget, who needs it?
     #
-    curl -k -f -o $DIRECTORY/SOURCES/apache-maven-${VERSION}.zip  ${URL}/${VERSION}/binaries/apache-maven-${VERSION}-bin.zip || rerun_die "Unable to download artifact: ${URL}/${VERSION}/binaries/apache-maven-${VERSION}-bin.zip"
+    if [ ! -r $DIRECTORY/SOURCES/apache-maven-${VERSION}.zip ]
+    then
+       curl -k -f -o $DIRECTORY/SOURCES/apache-maven-${VERSION}.zip  ${URL}/${VERSION}/binaries/apache-maven-${VERSION}-bin.zip || rerun_die "Unable to download artifact: ${URL}/${VERSION}/binaries/apache-maven-${VERSION}-bin.zip"
+    fi
   fi
 
    rerun rpm:build -n apache-maven -v $VERSION -r $RELEASE -t $DIRECTORY
