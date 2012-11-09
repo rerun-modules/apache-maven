@@ -11,7 +11,7 @@
 
 describe "build"
 
-it_runs_without_arguments() {
+it_fails_without_arguments() {
     rerun apache-maven:build || return 0
 }
 
