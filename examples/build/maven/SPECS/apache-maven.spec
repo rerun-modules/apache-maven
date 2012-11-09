@@ -42,18 +42,15 @@ rm -rf %{buildroot}
 install -d -m 755 %{buildroot}/usr/share/maven
 mv * %{buildroot}/usr/share/maven
 
-# Install the default init script included with JBoss AS for standalone server configuration:
-
-# Set the JBoss AS system level configuration file:
-
 mkdir -p %{buildroot}/usr/bin
-cat >%{buildroot}/usr/bin/mvn <<"EOF"
+(cd %{buildroot}/usr/bin && ln -s ../share/maven/bin/mvn)
+mkdir -p %{buildroot}/etc
+cat >%{buildroot}/etc/mavenrc <<"EOF"
 #!/bin/bash
 if [ -z "${M2_HOME}" ]
 then
    export M2_HOME="/usr/share/maven"
 fi
-exec "${M2_HOME}"/bin/mvn $*
 EOF
 
 
@@ -64,6 +61,7 @@ EOF
 # add the files to the RPM with appropriate permissions (allowing jboss-as.conf to be modified):
 %defattr(-,root,root)
 %attr(755,root,root) /usr/bin/mvn
+%attr(644,root,root) /etc/mavenrc
 
 /usr/share/maven
  
