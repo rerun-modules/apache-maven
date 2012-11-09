@@ -24,6 +24,7 @@ Requires: java-devel
 # stop the build failing just becauses there are a few sample binaries in the distribution:
 %define _binaries_in_noarch_packages_terminate_build   0
 
+
 %description
 Apache/Maven Build and Comprehension Tool
  
@@ -44,21 +45,15 @@ mv * %{buildroot}/usr/share/maven
 # Install the default init script included with JBoss AS for standalone server configuration:
 
 # Set the JBoss AS system level configuration file:
-mkdir -p %{buildroot}/etc/maven
-cp %{buildroot}/usr/share/maven/{LICENSE.txt,NOTICE.txt,README.txt} %{buildroot}/etc/maven
-cp %{buildroot}/usr/share/maven/conf/settings.xml %{buildroot}/etc/maven
-
-cat >%{buildroot}/etc/mavenrc <<"EOF"
-if [ -z "${MAVEN_OPTS}" ]
-then
-   export MAVEN_OPTS="-s /etc/maven/settings.xml"
-fi
-EOF
 
 mkdir -p %{buildroot}/usr/bin
 cat >%{buildroot}/usr/bin/mvn <<"EOF"
 #!/bin/bash
-exec ${M2_HOME}/bin/mvn $*
+if [ -z "${M2_HOME}" ]
+then
+   export M2_HOME="/usr/share/maven"
+fi
+exec "${M2_HOME}"/bin/mvn $*
 EOF
 
 
@@ -68,14 +63,7 @@ EOF
 %files
 # add the files to the RPM with appropriate permissions (allowing jboss-as.conf to be modified):
 %defattr(-,root,root)
-%dir /etc/maven
-%attr(644,root,root) /etc/maven/settings.xml
-%attr(644,root,root) /etc/mavenrc
 %attr(755,root,root) /usr/bin/mvn
-
-%attr(644,root,root) /etc/maven/LICENSE.txt
-%attr(644,root,root) /etc/maven/NOTICE.txt
-%attr(644,root,root) /etc/maven/README.txt
 
 /usr/share/maven
  
