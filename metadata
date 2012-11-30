@@ -5,3 +5,4 @@ DESCRIPTION="Rerun module to manage the apache-maven distribution"
 INTERPRETER="bash"
 VERSION=1.0.1
 REQUIRES=rpm
+EXTERNALS=
