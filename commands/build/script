@@ -34,10 +34,9 @@ set -o nounset -o pipefail
 
 
 buildrpm() {
-  if [[ ! -e $DIRECTORY/SOURCES/jboss-as-${VERSION}.zip ]]
+  if [[ ! -e $DIRECTORY/SOURCES/apache-maven-${VERSION}.zip ]]
   then
     # Download the specified version from the downloads site:
-    # e.g. http://download.jboss.org/jbossas/7.1/jboss-as-7.1.1.Final/jboss-as-7.1.1.Final.zip
 
     mkdir -p $DIRECTORY/SOURCES
 
